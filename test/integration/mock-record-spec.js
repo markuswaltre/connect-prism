@@ -11,6 +11,7 @@ var prism = require('../../');
 
 var testUtils = require('../test-utils');
 var httpGet = testUtils.httpGet;
+var httpPost = testUtils.httpPost;
 var waitForFile = testUtils.waitForFile;
 
 var MockFilenameGenerator = require('../../lib/services/mock-filename-generator');
@@ -65,7 +66,7 @@ describe('mock & record mode', function() {
 
     assert.equal(fs.existsSync(pathToResponse), true);
 
-    httpGet('/test').then(function(res) {
+    httpGet('/test', function(res, data) {
       assert.equal(res.req.path, '/test');
       done();
     });
@@ -92,7 +93,7 @@ describe('mock & record mode', function() {
 
     assert.equal(fs.existsSync(pathToResponse), false);
 
-    httpGet('/json').then(function(res) {
+    httpGet('/json', function(res, data) {
       waitForFile(pathToResponse, function(pathToResponse) {
         var recordedResponse = fs.readFileSync(pathToResponse).toString();
         var deserializedResponse = JSON.parse(recordedResponse);
@@ -130,7 +131,7 @@ describe('mock & record mode', function() {
 
     assert.equal(pathToResponse, pathToParameterisedResponse);
 
-    httpGet(parameterisedRecordRequest).then(function(res) {
+    httpGet(parameterisedRecordRequest, function(res, data) {
       waitForFile(pathToParameterisedResponse, function(pathToParameterisedResponse) {
 
         var recordedResponse = fs.readFileSync(pathToParameterisedResponse).toString();
@@ -171,7 +172,7 @@ describe('mock & record mode', function() {
 
     assert.equal(pathToResponse, pathToParameterisedResponse);
 
-    httpGet(parameterisedRecordRequest).then(function(res) {
+    httpGet(parameterisedRecordRequest, function(res, data) {
       waitForFile(pathToParameterisedResponse, function(pathToParameterisedResponse) {
 
         var recordedResponse = fs.readFileSync(pathToParameterisedResponse).toString();
@@ -212,7 +213,7 @@ describe('mock & record mode', function() {
 
     assert.equal(pathToResponse, pathToParameterisedResponse);
 
-    httpGet(parameterisedRecordRequest).then(function(res) {
+    httpGet(parameterisedRecordRequest, function(res, data) {
       waitForFile(pathToParameterisedResponse, function(pathToParameterisedResponse) {
 
         var recordedResponse = fs.readFileSync(pathToParameterisedResponse).toString();
