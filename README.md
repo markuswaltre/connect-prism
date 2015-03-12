@@ -13,7 +13,7 @@ this repo is forked from [https://github.com/seglo/connect-prism](https://github
       port: targets.backend.port,
       hashFullRequest: true,
       mockFilenameGenerator: customMockFilename,
-      clearOnStart: true
+      clearOnStart: false
   });
 ```
 
