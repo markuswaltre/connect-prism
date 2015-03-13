@@ -22,8 +22,7 @@ this repo is forked from [https://github.com/seglo/connect-prism](https://github
 function customMockFilename(config, req, status) {
     var maxLength = 255;
 
-    var fileName = req.url.replace(/\/|\_|\?|\<|\>|\\|\:|\*|\||\"/g,'_');
-    fileName += '_' + req.method + '_' + status + '_';
+    var fileName = req.url.replace(/\/|\_|\?|\<|\>|\\|\:|\*|\||\"/g,'_') + '_' + req.method + '_';
     var payload = JSON.stringify(req.body);
 
     var shasum = crypto.createHash('sha1');
