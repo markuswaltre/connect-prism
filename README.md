@@ -24,9 +24,10 @@ function customMockFilename(config, req, status) {
 
     var fileName = req.url.replace(/\/|\_|\?|\<|\>|\\|\:|\*|\||\"/g,'_') + '_' + req.method + '_';
     var payload = JSON.stringify(req.body);
+    var auth = !req.headers.authorization ? '' : req.headers.authorization;
 
     var shasum = crypto.createHash('sha1');
-    shasum.update(fileName + payload);
+    shasum.update(fileName + payload + auth);
     var hash = shasum.digest('hex');
 
     return fileName.substring(0, maxLength - hash.length) + hash + '.json';
